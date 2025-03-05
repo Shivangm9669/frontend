@@ -21,6 +21,7 @@ export const loginUser = async (email: string, password: string) => {
 
 export const fetchProducts = async (): Promise<Product[]> => {
   const response = await api.get('/Product');
+  console.log('api page Products:', response.data);
   return response.data;
 };
 
@@ -31,10 +32,20 @@ export const fetchCategories = async () => {
 };
 
 export const fetchWishlist = async (userId: number) => {
-  const response = await api.get(`/Wishlist/${userId}`);
+  const response = await api.get(`/Wishlist/user/${userId}`);
   return response.data;
 };
 
 export const updateWishlist = async (wishlistId: number, productIds: number[]) => {
   await api.put(`/Wishlist/${wishlistId}`, { productIds });
 };
+
+
+export const addProducttoWishlist = async (userId: number, productId: number) => {
+  await api.post(`/Wishlist/${userId}/add`, { productId });
+};
+
+export const removeProductFromWishlist = async (userId: number, productId: number) => {
+  await api.post(`/Wishlist/${userId}/remove/${productId}`, );
+};
+

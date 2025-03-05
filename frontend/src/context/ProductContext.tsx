@@ -25,6 +25,7 @@ export const ProductProvider: React.FC<{ children: React.ReactNode }> = ({ child
   useEffect(() => {
     const loadProducts = async () => {
       const data = await fetchProducts();
+      console.log('Products:', data);
       setProducts(data);
     };
 

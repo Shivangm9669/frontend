@@ -6,6 +6,11 @@ const HomePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | 'all'>('all');
   const [selectedRating, setSelectedRating] = useState<number | 'all'>('all');
 
+  console.log('in home Products:', products);
+  console.log('in home Products values:', products.values);
+
+  
+
   const filteredProducts = products.filter((product) => {
     const matchesCategory = selectedCategory === 'all' || product.categoryId === selectedCategory;
     const matchesRating = selectedRating === 'all' || product.rating >= selectedRating;
@@ -16,7 +21,6 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <h2>Products</h2>
 
-      {/* Filters */}
       <div className="filters">
         <select
           value={selectedCategory}
@@ -47,7 +51,6 @@ const HomePage: React.FC = () => {
         </select>
       </div>
 
-      {/* Products */}
       <div className="product-grid">
         {filteredProducts.map((product) => (
           <div key={product.productId} className="product-card">

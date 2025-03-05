@@ -46,12 +46,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     fetchCart();
   }, [user, token]);
 
-  // ➕ Add item to cart API
+
   const addToCart = async (item: CartItem) => {
-    if (!user || !token) return;  // Check if user is logged in
+    if (!user || !token) return; 
     try {
       const response = await axios.post(
-        `http://localhost:5008/api/Cart/${user.userId}`,
+        `http://localhost:5008/api/Cart/${user.userId}/add`,
         { productId: item.productId, quantity: item.quantity },
         { headers: { Authorization: `Bearer ${token}` } }
       );

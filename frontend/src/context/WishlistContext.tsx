@@ -1,5 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
-import { fetchWishlist, updateWishlist } from '../services/api';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { fetchWishlist, addProducttoWishlist, removeProductFromWishlist } from '../services/api';
 import { useAuth } from './AuthContext';
 
 interface WishlistItem {
@@ -27,17 +27,32 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
 
   const loadWishlist = async () => {
     if (user) {
+      console.log('Loading wishlist for user ID:', user.userId);
       const response = await fetchWishlist(user.userId);
-      setWishlist(response.data.products);
+      console.log('Wishlist loaded:', response);
+      console.log('Wishlist loaded:', response.products);
+      setWishlist(response.products);
     }
   };
 
   const toggleWishlist = async (productId: number) => {
     if (user) {
-      await updateWishlist(user.userId, [productId]);
+      const isProductInWishlist = wishlist.some(item => item.productId === productId);
+      console.log('Toggling wishlist for product ID:', productId, 'Is in wishlist:', isProductInWishlist);
+      if (isProductInWishlist) {
+        await removeProductFromWishlist(user.userId, productId);
+        console.log('Product removed from wishlist:', productId);
+      } else {
+        await addProducttoWishlist(user.userId, productId);
+        console.log('Product added to wishlist:', productId);
+      }
       await loadWishlist();
     }
   };
+
+  useEffect(() => {
+    loadWishlist();
+  }, [user]);
 
   return (
     <WishlistContext.Provider value={{ wishlist, toggleWishlist }}>

@@ -5,7 +5,7 @@ import { User } from '../type';
 interface AuthContextType {
   user: User | null;
   token: string | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;  // ✅ Added setUser
+  setUser: React.Dispatch<React.SetStateAction<User | null>>; 
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   register: (name: string, email: string, password: string) => Promise<void>;
@@ -32,8 +32,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { token, user } = await loginUser(email, password);
       setToken(token);
       setUser(user);
+      console.log('Login successful:', user);
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
+      console.log('User ID after login:', user.userId); // Add this line to debug user ID
     } catch (error) {
       console.error('Login failed:', error);
       throw error;

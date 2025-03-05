@@ -1,0 +1,37 @@
+
+@media (max-width: 480px) {
+    .home-page {
+        padding: 10px;
+    }
+
+    .home-page h2 {
+        font-size: 2rem;
+    }
+
+    .filters {
+        gap: 10px;
+    }
+
+    .filters select {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .product-card img {
+        height: 200px;
+    }
+
+    .product-card h3 {
+        font-size: 1rem;
+    }
+
+    .product-card p {
+        font-size: 0.9rem;
+    }
+}
