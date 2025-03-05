@@ -2,14 +2,18 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { fetchWishlist, addProducttoWishlist, removeProductFromWishlist } from '../services/api';
 import { useAuth } from './AuthContext';
 
+// Adjust WishlistItem to match the API if needed
 interface WishlistItem {
+  wishlistId: number;
+  userId: number;
   productId: number;
-  name: string;
-  price: number;
-  description: string;
-  rating: number;
-  categoryId: number;
-  imageUrls: string[];
+  // Optionally add extra fields if you plan to merge product details later
+  name?: string;
+  price?: number;
+  description?: string;
+  rating?: number;
+  categoryId?: number;
+  imageUrls?: string[];
 }
 
 interface WishlistContextType {
@@ -30,8 +34,8 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
       console.log('Loading wishlist for user ID:', user.userId);
       const response = await fetchWishlist(user.userId);
       console.log('Wishlist loaded:', response);
-      console.log('Wishlist loaded:', response.products);
-      setWishlist(response.products);
+      // Use the response directly as it is now an array
+      setWishlist(response);
     }
   };
 

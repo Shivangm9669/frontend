@@ -1,17 +1,9 @@
 :root {
-
-    --gradient-start: #30cfd0;
-    --gradient-end: #330867;
-
-    /* Text Colors */
-    --text-primary: white;
-    --text-secondary: #30cfd0;
-
-    /* Background Colors */
-    --bg-primary: rgba(255,255,255,0.1);
-    --bg-secondary: rgba(255,255,255,0.2);
-
-    /* Transition Speeds */
-    --transition-speed-fast: 0.3s;
-    --transition-speed-medium: 0.5s;
+  --primary-dark: #3D52A0;
+  --primary: #7091E6;
+  --primary-medium: #8697C4;
+  --primary-light: #ADBBDA;
+  --primary-lighter: #EDE8F5;
+  --success-color: #4CAF50;
+  --error-color: #F44336;
 }

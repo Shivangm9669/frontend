@@ -36,16 +36,11 @@ export const fetchWishlist = async (userId: number) => {
   return response.data;
 };
 
-export const updateWishlist = async (wishlistId: number, productIds: number[]) => {
-  await api.put(`/Wishlist/${wishlistId}`, { productIds });
-};
-
-
 export const addProducttoWishlist = async (userId: number, productId: number) => {
-  await api.post(`/Wishlist/${userId}/add`, { productId });
+  await api.post(`/Wishlist/${userId}/add`, { productId: Number(productId) });
 };
 
 export const removeProductFromWishlist = async (userId: number, productId: number) => {
-  await api.post(`/Wishlist/${userId}/remove/${productId}`, );
+  await api.delete(`/Wishlist/${userId}/remove/${productId}`, );
 };
 

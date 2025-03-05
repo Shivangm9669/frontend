@@ -11,6 +11,7 @@ import CartPage from './pages/CartPage';
 import WishlistPage from './pages/WishlistPage';
 import { SubscriptionProvider } from './context/SubscriptionContext';
 import Navbar from './components/Navbar';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => (
   <SubscriptionProvider>
@@ -29,6 +30,14 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <CartPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <ProfilePage />
                   </ProtectedRoute>
                 }
               />
