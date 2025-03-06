@@ -34,7 +34,6 @@ export const WishlistProvider = ({ children }: { children: ReactNode }) => {
       console.log('Loading wishlist for user ID:', user.userId);
       const response = await fetchWishlist(user.userId);
       console.log('Wishlist loaded:', response);
-      // Use the response directly as it is now an array
       setWishlist(response);
     }
   };

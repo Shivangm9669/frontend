@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { useWishlist } from '../context/WishlistContext';
 import { Product } from '../type';
-import '../styles/ProductCard.css';  // Optional: Create this file later for styling
+ // Optional: Create this file later for styling
 
 interface ProductCardProps {
   product: Product;

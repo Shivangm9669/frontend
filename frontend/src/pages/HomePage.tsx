@@ -6,6 +6,7 @@ import { Product } from '../type';
 import { FiHeart } from 'react-icons/fi';
 import { AiFillHeart } from 'react-icons/ai';
 import { useWishlist } from '../context/WishlistContext';
+import { useNavigate } from 'react-router-dom';
 import "../style/home-page-styles.css";
 
 const HomePage: React.FC = () => {
@@ -13,14 +14,20 @@ const HomePage: React.FC = () => {
   const { wishlist, toggleWishlist } = useWishlist();
   const [selectedCategory, setSelectedCategory] = useState<number | 'all'>('all');
   const [selectedRating, setSelectedRating] = useState<number | 'all'>('all');
+  const navigate = useNavigate();
 
   // Check whether a product is in the wishlist based on productId
   const isProductInWishlist = (productId: number) => 
     wishlist.some(item => item.productId === productId);
 
-  // Handler calling the context toggle function
+  // Toggle wishlist without triggering card's onClick
   const handleWishlistToggle = async (product: Product) => {
     await toggleWishlist(product.productId);
+  };
+
+  // Navigate to the product page with the selected product
+  const handleProductClick = (product: Product) => {
+    navigate(`/product/${product.productId}`);
   };
 
   // Filter products based on selected category and rating criteria
@@ -117,7 +124,11 @@ const HomePage: React.FC = () => {
 
       <div className="product-grid">
         {filteredProducts.map((product) => (
-          <div key={product.productId} className="product-card">
+          <div 
+            key={product.productId} 
+            className="product-card" 
+            onClick={() => handleProductClick(product)}
+          >
             <img src={product.imageUrls[0]} alt={product.name} />
             <div className="product-card-content">
               <h3>{product.name}</h3>
@@ -125,7 +136,10 @@ const HomePage: React.FC = () => {
               <div className="rating">Rating: {product.rating.toFixed(2)} ★</div>
               <button 
                 className={`wishlist-button ${isProductInWishlist(product.productId) ? 'in-wishlist' : ''}`}
-                onClick={() => handleWishlistToggle(product)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleWishlistToggle(product);
+                }}
               >
                 {isProductInWishlist(product.productId) ? <AiFillHeart /> : <FiHeart />}
               </button>

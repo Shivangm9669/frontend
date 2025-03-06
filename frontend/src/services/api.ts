@@ -37,8 +37,19 @@ export const fetchWishlist = async (userId: number) => {
 };
 
 export const addProducttoWishlist = async (userId: number, productId: number) => {
-  await api.post(`/Wishlist/${userId}/add`, { productId: Number(productId) });
+  console.log('addProducttoWishlist:', userId, productId);
+  try {
+    await api.post(`/Wishlist/${userId}/add`, productId);
+
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.log('Error:', error.response?.data || error.message);
+    } else {
+      console.log('Error:', error);
+    }
+  }
 };
+
 
 export const removeProductFromWishlist = async (userId: number, productId: number) => {
   await api.delete(`/Wishlist/${userId}/remove/${productId}`, );

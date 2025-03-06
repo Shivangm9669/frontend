@@ -1,12 +1,25 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
+import { useProducts } from '../context/ProductContext';
+import '../style/cart-page-style.css';
 
 const CartPage: React.FC = () => {
   const { cart, removeFromCart, clearCart } = useCart();
+  const { products } = useProducts();
 
-  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // Map cart items to their corresponding product details
+  const cartItems = cart.map(cartItem => {
+    const product = products.find(p => p.productId === cartItem.productId);
+    return {
+      ...cartItem,
+      ...product
+    };
+  });
 
-  if (cart.length === 0) {
+  // Calculate total price
+  const totalPrice = cartItems.reduce((acc, item) => acc + (item.price || 0) * item.quantity, 0);
+
+  if (cartItems.length === 0) {
     return <div className="cart-empty">Your cart is empty 🛒</div>;
   }
 
@@ -14,7 +27,7 @@ const CartPage: React.FC = () => {
     <div className="cart-container">
       <h2>My Cart</h2>
       <div className="cart-items">
-        {cart.map((item) => (
+        {cartItems.map((item) => (
           <div className="cart-item" key={item.productId}>
             <div className="item-info">
               <img src={item.imageUrls[0]} alt={item.name} className="item-image" />

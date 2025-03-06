@@ -1,9 +1,9 @@
 import React from 'react';
 import { useWishlist } from '../context/WishlistContext';
 import { useProducts } from '../context/ProductContext';
-import { FiHeart } from 'react-icons/fi'; // Import React Icons
-import { AiFillHeart } from 'react-icons/ai';
 
+import { AiFillHeart } from 'react-icons/ai';
+import '../style/wishlist-page-style.css'; // Import the CSS file
 
 const WishlistPage: React.FC = () => {
   const { wishlist, toggleWishlist } = useWishlist();
@@ -26,7 +26,7 @@ const WishlistPage: React.FC = () => {
       {wishlistWithProducts.length === 0 ? (
         <p>Your wishlist is empty.</p>
       ) : (
-        <div>
+        <div className="wishlist-items-container">
           {wishlistWithProducts.map((item) => (
             <div key={item.productId} className="wishlist-item">
               <img
@@ -38,13 +38,7 @@ const WishlistPage: React.FC = () => {
                 <h4>{item.name}</h4>
                 <p>Price: ${item.price}</p>
                 <button onClick={() => toggleWishlist(item.productId)}>
-                  {wishlist.some(
-                    (wishlistItem) => wishlistItem.productId === item.productId
-                  ) ? (
-                    <AiFillHeart />
-                  ) : (
-                    <FiHeart />
-                  )}
+                  <AiFillHeart />
                 </button>
               </div>
             </div>
